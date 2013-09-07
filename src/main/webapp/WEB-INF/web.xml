@@ -1,0 +1,12 @@
+<web-app>
+    <display-name>DDD FOP Service - Initial</display-name>
+
+    <servlet>
+        <servlet-name>retrievePDF</servlet-name>
+        <servlet-class>com.no9.app.ui.RetrievePDF</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>retrievePDF</servlet-name>
+        <url-pattern>/retrievePDF/*</url-pattern>
+    </servlet-mapping>
+</web-app>
