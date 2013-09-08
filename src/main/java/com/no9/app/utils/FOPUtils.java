@@ -26,10 +26,10 @@ public class FOPUtils implements Serializable {
         this.servletContext = servletContext;
     }
 
-    public void xmlToPDF(StreamSource xmlSource, Templates templates, OutputStream outputStream) throws FOPException, IOException, TransformerException {
+    public void xmlToPDF(StreamSource xmlSource, Templates template, OutputStream outputStream) throws FOPException, IOException, TransformerException {
         Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, outputStream);
         Result res = new SAXResult(fop.getDefaultHandler());
-        templates.newTransformer().transform(xmlSource, res);
+        template.newTransformer().transform(xmlSource, res);
     }
 
     public Templates getXSLTemplate(String xsltTemplateName) throws TransformerException {
@@ -41,7 +41,7 @@ public class FOPUtils implements Serializable {
         return templates;
     }
 
-    public Templates loadTemplate(String xsltTemplateName) throws TransformerException {
+    private Templates loadTemplate(String xsltTemplateName) throws TransformerException {
         URIResolver uriResolver = new ServletContextURIResolver(servletContext);
         Source xsltSource = uriResolver.resolve("servlet-context:" + xsltTemplateName, null);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
