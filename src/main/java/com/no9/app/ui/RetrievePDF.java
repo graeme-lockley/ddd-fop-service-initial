@@ -11,17 +11,20 @@ import java.io.File;
 import java.io.IOException;
 
 public class RetrievePDF extends HttpServlet {
+    private static final String XML_SOURCE_RESOURCE_NAME = "Hello.xml";
+    private static final String XSLT_TEMPLATE_RESOURCE_NAME = "HelloWorld.xsl";
+    private static final String RESULT_FILE_NAME = "HelloWorld.pdf";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             resp.setContentType("application/pdf");
-            resp.setHeader("Content-Disposition", "attachment; filename=\"HelloWorld.pdf\"");
+            resp.setHeader("Content-Disposition", "attachment; filename=\"" + RESULT_FILE_NAME + "\"");
 
-            StreamSource xmlSource = xmlAsStreamSource(getResourceFile("Hello.xml"));
+            StreamSource xmlSource = xmlAsStreamSource(getResourceFile(XML_SOURCE_RESOURCE_NAME));
 
             FOPUtils fopUtils = new FOPUtils(getServletContext());
-            fopUtils.xmlToPDF(xmlSource, fopUtils.getXSLTemplate("HelloWorld.xsl"), resp.getOutputStream());
+            fopUtils.xmlToPDF(xmlSource, fopUtils.getXSLTemplate(XSLT_TEMPLATE_RESOURCE_NAME), resp.getOutputStream());
         } catch (Exception ex) {
             resp.setContentType("text/html");
             resp.getOutputStream().println("<h1>Exception</h1>");
