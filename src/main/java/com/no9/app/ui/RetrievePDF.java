@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class RetrievePDF extends HttpServlet {
     private static final String XML_SOURCE_RESOURCE_NAME = "Hello.xml";
-    private static final String XSLT_TEMPLATE_RESOURCE_NAME = "HelloWorld.xsl";
+    private static final String XSLT_TEMPLATE_RESOURCE_NAME = "/HelloWorld.xsl";
     private static final String RESULT_FILE_NAME = "HelloWorld.pdf";
 
     @Override
