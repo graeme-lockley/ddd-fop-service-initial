@@ -35,15 +35,8 @@ public class RetrievePDFTest {
 
     @Test
     public void should_get_same_PDF_result_over_multiple_calls() throws Exception {
-        HttpTester firstResponse = getResponse();
-        assertEquals(200, firstResponse.getStatus());
-        assertEquals("application/pdf", firstResponse.getContentType());
-        assertTrue(firstResponse.getContent().startsWith("%PDF-1.4"));
-
-        HttpTester secondResponse = getResponse();
-        assertEquals(200, secondResponse.getStatus());
-        assertEquals("application/pdf", secondResponse.getContentType());
-        assertTrue(secondResponse.getContent().startsWith("%PDF-1.4"));
+        HttpTester firstResponse = getPDFResponse();
+        HttpTester secondResponse = getPDFResponse();
 
         assertEquals(firstResponse.getContent().length(), secondResponse.getContent().length());
     }
@@ -61,6 +54,16 @@ public class RetrievePDFTest {
         assertEquals(200, response.getStatus());
         assertEquals("text/html", response.getContentType());
         assertTrue(response.getContent().contains("Mock Exception"));
+    }
+
+    private HttpTester getPDFResponse() throws Exception {
+        HttpTester response = getResponse();
+
+        assertEquals(200, response.getStatus());
+        assertEquals("application/pdf", response.getContentType());
+        assertTrue(response.getContent().startsWith("%PDF-1.4"));
+
+        return response;
     }
 
     private HttpTester getResponse() throws Exception {
