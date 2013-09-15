@@ -4,6 +4,6 @@
     <title>Hello World</title>
 </head>
 <body>
-  <a href="retrievePDF">PDF</a>
+  <a href="retrievePDF">Download generated PDF</a>
 </body>
 </html>
