@@ -19,8 +19,12 @@ import java.util.Map;
 
 public class FOPUtils implements Serializable {
     private static FopFactory fopFactory = FopFactory.newInstance();
-    private static Map<String, Templates> xslTemplatesCache = Collections.synchronizedMap(new HashMap<String, Templates>());
+    private static Map<String, Templates> xslTemplatesCache;
     private ServletContext servletContext;
+
+    static {
+        resetCache();
+    }
 
     public FOPUtils(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -47,5 +51,9 @@ public class FOPUtils implements Serializable {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setURIResolver(uriResolver);
         return transformerFactory.newTemplates(xsltSource);
+    }
+
+    public static void resetCache() {
+        xslTemplatesCache = Collections.synchronizedMap(new HashMap<String, Templates>());
     }
 }
