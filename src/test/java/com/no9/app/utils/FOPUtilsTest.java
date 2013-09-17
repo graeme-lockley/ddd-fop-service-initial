@@ -21,15 +21,14 @@ public class FOPUtilsTest {
     public void setUp() throws Exception {
         servletContext = new MockUp<ServletContext>() {
             @Mock
-            public InputStream getResourceAsStream(String path) {
+            public InputStream getResourceAsStream(String resourceName) {
                 numberOfCallsToGetResourceAsStream += 1;
                 try {
-                    return new FileInputStream("src/main/webapp" + path);
+                    return new FileInputStream("src/main/webapp" + resourceName);
                 } catch (FileNotFoundException e) {
                     return null;
                 }
             }
-
         }.getMockInstance();
         FOPUtils.resetCache();
         fopUtils = new FOPUtils(servletContext);
